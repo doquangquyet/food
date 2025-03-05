@@ -7,25 +7,27 @@
         <div class="col-lg-6" >
           <div class="box login">
             <h3>Log In Your Account</h3>
-        <form method="POST" action="{{ route('login') }}">
+       <form method="POST" action="{{ route('login') }}">
     @csrf
-    <input type="email" name="email" placeholder="Username or email address" value="{{ old('email') }}" required>
+    <input type="email" name="email" placeholder="Username or email address"
+           value="{{ old('email') }}" required>
+
     @error('email')
         <p class="error-message">{{ $message }}</p>
     @enderror
 
-    <input type="password" name="password" placeholder="Password" required>
+    <input type="password" name="password" id="password" placeholder="Password" required>
     @error('password')
         <p class="error-message">{{ $message }}</p>
     @enderror
 
     <div class="remember">
         <div class="first">
-            <input type="checkbox" name="remember" id="checkbox">
-            <label for="checkbox">Remember me</label>
+            <input type="checkbox" name="remember" id="rememberCheckbox" onclick="togglePassword()">
+            <label for="rememberCheckbox">Remember me</label>
         </div>
         <div class="second">
-            <a href="#">Forget a Password?</a>
+            <a href="{{ route('password.request') }}">Forget a Password?</a>
         </div>
     </div>
 
@@ -91,6 +93,19 @@
         });
     </script>
 @endif
+
+<script>
+    function togglePassword() {
+        let passwordInput = document.getElementById("password");
+        let rememberCheckbox = document.getElementById("rememberCheckbox");
+
+        if (rememberCheckbox.checked) {
+            passwordInput.type = "text"; // Hiển thị mật khẩu
+        } else {
+            passwordInput.type = "password"; // Ẩn mật khẩu
+        }
+    }
+</script>
 
 
           </div>
