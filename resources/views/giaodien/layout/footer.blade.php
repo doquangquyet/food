@@ -37,23 +37,15 @@
             <div class="link-about">
                <h3>Newsletter</h3>
                <p>Get recent news and updates.</p>
-     <form class="footer-form" action="{{ route('subscribe-email.store') }}" method="POST">
+        <form class="footer-form" action="{{ route('subscribe-email.store') }}" method="POST">
     @csrf
-
-    <input type="email" name="email" placeholder="Enter Your Email Address..."
+    <input type="email" name="email" placeholder="Enter Your Email Address..." 
            class="form-control @error('email') is-invalid @enderror" value="{{ old('email') }}">
+    
 
-    @error('email')
-        <div class="invalid-feedback">{{ $message }}</div>
-    @enderror
 
     <button class="button">Subscribe</button>
 </form>
-
-@if (session('success'))
-    <div class="alert alert-success">{{ session('success') }}</div>
-@endif
-
 
             </div>
          </div>
