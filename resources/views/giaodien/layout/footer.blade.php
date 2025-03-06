@@ -37,10 +37,16 @@
             <div class="link-about">
                <h3>Newsletter</h3>
                <p>Get recent news and updates.</p>
-               <form class="footer-form">
-                  <input type="text" name="Enter Your Email Address" placeholder="Enter Your Email Address...">
-                  <button class="button">Subscribe</button>
-               </form>
+        <form class="footer-form" action="{{ route('subscribe-email.store') }}" method="POST">
+    @csrf
+    <input type="email" name="email" placeholder="Enter Your Email Address..." 
+           class="form-control @error('email') is-invalid @enderror" value="{{ old('email') }}">
+    
+
+
+    <button class="button">Subscribe</button>
+</form>
+
             </div>
          </div>
       </div>
