@@ -42,13 +42,28 @@ Route::get('123cd', [Controller::class, 'abc']);
 Route::post('subscribe-email', [CustomerEmailController::class, 'subscribe'])->name('subscribe-email.store');
 
 
+Route::get('/home', [Controller::class, 'index'])->name('product.details');
+
+
 // dang ki dang nhap
-Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
-    Route::delete('/products/image/{id}', [ProductsController::class, 'deleteImage'])->name('products.deleteImage');
+Route::middleware(['auth', 'admin'])
+    ->prefix('admin')
+    ->as('admin.')
+    ->group(function () {
+
+    /** ------------------ PRODUCTS ------------------ */
+    Route::delete('/products/image/{id}', [ProductsController::class, 'deleteImage'])
+        ->name('products.deleteImage');
     Route::resource('products', ProductsController::class);
+
+    /** ------------------ CATEGORIES ------------------ */
     Route::resource('categories', CategoryController::class);
-    Route::delete('categories/{id}/force-delete', [CategoryController::class, 'forceDelete'])->name('categories.forceDelete');
-    Route::post('categories/{id}/restore', [CategoryController::class, 'restore'])->name('categories.restore');
+    Route::delete('categories/{id}/force-delete', [CategoryController::class, 'forceDelete'])
+        ->name('categories.forceDelete');
+    Route::post('categories/{id}/restore', [CategoryController::class, 'restore'])
+        ->name('categories.restore');
+
+    /** ------------------ CUSTOMER EMAILS ------------------ */
     Route::resource('customer-emails', CustomerEmailController::class);
 });
 

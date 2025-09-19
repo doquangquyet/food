@@ -155,7 +155,7 @@
                       </div>
 
                       <div class="has-child-text">
-                        <span> Transaction </span>
+                        <span> <a href="{{ route('admin.products.create') }}">Thêm sản phẩm</a> </span>
                       </div>
                     </div>
                   </div>

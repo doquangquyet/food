@@ -17,7 +17,7 @@
     </tr>
   </thead>
   <tbody>
-    @foreach($product as $produc)
+    @foreach($products as $produc)
     <tr>
     <th scope="row">{{ $produc->id }}</th>
      <td>{{ $produc->category->name ?? 'Không có danh mục' }}</td>

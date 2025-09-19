@@ -581,88 +581,72 @@
          <h2>Featured Dishes</h2>
          <div class="line"></div>
       </div>
+
       <div class="row dishes owl-carousel owl-theme">
-         <div class="item col-xl-12">
-            <div class="featured-dishes">
-               <div class="featured-dishes-img">
-                  <img alt="featured-dishes" src="{{ asset('giaodien') }}/assets/img/featured-dishes-1.png">
-               </div>
-               <ul class="star">
-                  <li><i class="fa-solid fa-star"></i></li>
-                  <li><i class="fa-solid fa-star"></i></li>
-                  <li><i class="fa-solid fa-star"></i></li>
-                  <li><i class="fa-solid fa-star"></i></li>
-                  <li><i class="fa-solid fa-star"></i></li>
-               </ul>
-               <a href="product-details.html"><h5>Brown Sandwich</h5></a>
-               <p><span>$</span>10.85</p>
-               <a href="cart-checkout.html">
-               <i><svg enable-background="new 0 0 512 512" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><g><path d="m452 120h-60.946c-7.945-67.478-65.477-120-135.054-120s-127.109 52.522-135.054 120h-60.946c-11.046 0-20 8.954-20 20v352c0 11.046 8.954 20 20 20h392c11.046 0 20-8.954 20-20v-352c0-11.046-8.954-20-20-20zm-196-80c47.484 0 87.019 34.655 94.659 80h-189.318c7.64-45.345 47.175-80 94.659-80zm176 432h-352v-312h40v60c0 11.046 8.954 20 20 20s20-8.954 20-20v-60h192v60c0 11.046 8.954 20 20 20s20-8.954 20-20v-60h40z"></path></g></svg></i></a>
+         @foreach($products as $product)
+            <div class="item col-xl-12">
+               <div class="featured-dishes">
+
+                  <!-- Ảnh -->
+               <div class="featured-dishes-img" 
+     style="width:100%;height:250px;overflow:hidden;display:flex;justify-content:center;align-items:center;">
+   <div id="carousel-{{ $product->id }}" class="carousel slide" data-bs-ride="carousel" data-bs-interval="2500">
+      <div class="carousel-inner">
+         @foreach($product->images as $key => $image)
+            <div class="carousel-item {{ $key == 0 ? 'active' : '' }}">
+               <img src="{{ asset('storage/' . $image->image) }}" 
+                    class="d-block w-100 h-100 object-cover" 
+                    alt="{{ $product->name }}">
             </div>
-         </div>
-         <div class="item col-xl-12">
-            <div class="featured-dishes">
-               <div class="sale">
-                  <h6>Sale</h6>
+         @endforeach
+      </div>
+   </div>
+</div>
+
+                  <!-- Rating -->
+                  <ul class="star">
+                     <li><i class="fa-solid fa-star"></i></li>
+                     <li><i class="fa-solid fa-star"></i></li>
+                     <li><i class="fa-solid fa-star"></i></li>
+                     <li><i class="fa-solid fa-star"></i></li>
+                     <li><i class="fa-solid fa-star"></i></li>
+                  </ul>
+
+                  <!-- Tên + link -->
+                  <a href="{{ route('product.details', $product->id) }}">
+                     <h5>{{ $product->name }}</h5>
+                  </a>
+
+                  <!-- Giá -->
+                  <p><span>$</span>{{ number_format($product->price, 2) }}</p>
+
+                  <!-- Icon -->
+                  <a href="#">
+                     <i>
+                        <svg enable-background="new 0 0 512 512" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+                           <g>
+                              <path d="m452 120h-60.946c-7.945-67.478-65.477-120-135.054-120
+                                 s-127.109 52.522-135.054 120h-60.946c-11.046 0-20 
+                                 8.954-20 20v352c0 11.046 8.954 20 20 
+                                 20h392c11.046 0 20-8.954 
+                                 20-20v-352c0-11.046-8.954-20-20-20zm-196-80c47.484 
+                                 0 87.019 34.655 94.659 80h-189.318c7.64-45.345 
+                                 47.175-80 94.659-80zm176 432h-352v-312h40v60c0 
+                                 11.046 8.954 20 20s20-8.954 
+                                 20-20v-60h192v60c0 11.046 
+                                 8.954 20 20s20-8.954 
+                                 20-20v-60h40z"></path>
+                           </g>
+                        </svg>
+                     </i>
+                  </a>
                </div>
-               <div class="featured-dishes-img">
-                  <img alt="featured-dishes" src="{{ asset('giaodien') }}/assets/img/featured-dishes-2.png">
-               </div>
-               <ul class="star">
-                  <li><i class="fa-solid fa-star"></i></li>
-                  <li><i class="fa-solid fa-star"></i></li>
-                  <li><i class="fa-solid fa-star"></i></li>
-                  <li><i class="fa-solid fa-star"></i></li>
-                  <li><i class="fa-solid fa-star"></i></li>
-               </ul>
-               <a href="product-details.html"><h5>Banana Leaves</h5></a>
-               <div class="d-flex">
-                  <p><span>$</span>10.85</p>
-                  <del>$14.5</del>
-               </div>
-               <a href="cart-checkout.html">
-               <i><svg enable-background="new 0 0 512 512" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><g><path d="m452 120h-60.946c-7.945-67.478-65.477-120-135.054-120s-127.109 52.522-135.054 120h-60.946c-11.046 0-20 8.954-20 20v352c0 11.046 8.954 20 20 20h392c11.046 0 20-8.954 20-20v-352c0-11.046-8.954-20-20-20zm-196-80c47.484 0 87.019 34.655 94.659 80h-189.318c7.64-45.345 47.175-80 94.659-80zm176 432h-352v-312h40v60c0 11.046 8.954 20 20 20s20-8.954 20-20v-60h192v60c0 11.046 8.954 20 20 20s20-8.954 20-20v-60h40z"></path></g></svg></i></a>
             </div>
-         </div>
-         <div class="item col-xl-12">
-            <div class="featured-dishes">
-               <div class="featured-dishes-img">
-                  <img alt="featured-dishes" src="{{ asset('giaodien') }}/assets/img/featured-dishes-3.png">
-               </div>
-               <ul class="star">
-                  <li><i class="fa-solid fa-star"></i></li>
-                  <li><i class="fa-solid fa-star"></i></li>
-                  <li><i class="fa-solid fa-star"></i></li>
-                  <li><i class="fa-solid fa-star"></i></li>
-                  <li><i class="fa-solid fa-star"></i></li>
-               </ul>
-               <a href="product-details.html"><h5>Parisian Hamburger</h5></a>
-               <p><span>$</span>10.85</p>
-               <a href="cart-checkout.html">
-               <i><svg enable-background="new 0 0 512 512" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><g><path d="m452 120h-60.946c-7.945-67.478-65.477-120-135.054-120s-127.109 52.522-135.054 120h-60.946c-11.046 0-20 8.954-20 20v352c0 11.046 8.954 20 20 20h392c11.046 0 20-8.954 20-20v-352c0-11.046-8.954-20-20-20zm-196-80c47.484 0 87.019 34.655 94.659 80h-189.318c7.64-45.345 47.175-80 94.659-80zm176 432h-352v-312h40v60c0 11.046 8.954 20 20 20s20-8.954 20-20v-60h192v60c0 11.046 8.954 20 20 20s20-8.954 20-20v-60h40z"></path></g></svg></i></a>
-            </div>
-         </div>
-         <div class="item col-xl-12">
-            <div class="featured-dishes">
-               <div class="featured-dishes-img">
-                  <img alt="featured-dishes" src="{{ asset('giaodien') }}/assets/img/featured-dishes-2.png">
-               </div>
-               <ul class="star">
-                  <li><i class="fa-solid fa-star"></i></li>
-                  <li><i class="fa-solid fa-star"></i></li>
-                  <li><i class="fa-solid fa-star"></i></li>
-                  <li><i class="fa-solid fa-star"></i></li>
-                  <li><i class="fa-solid fa-star"></i></li>
-               </ul>
-               <a href="product-details.html"><h5>Parisian Hamburger</h5></a>
-               <p><span>$</span>10.85</p>
-               <a href="cart-checkout.html">
-               <i><svg enable-background="new 0 0 512 512" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><g><path d="m452 120h-60.946c-7.945-67.478-65.477-120-135.054-120s-127.109 52.522-135.054 120h-60.946c-11.046 0-20 8.954-20 20v352c0 11.046 8.954 20 20 20h392c11.046 0 20-8.954 20-20v-352c0-11.046-8.954-20-20-20zm-196-80c47.484 0 87.019 34.655 94.659 80h-189.318c7.64-45.345 47.175-80 94.659-80zm176 432h-352v-312h40v60c0 11.046 8.954 20 20 20s20-8.954 20-20v-60h192v60c0 11.046 8.954 20 20 20s20-8.954 20-20v-60h40z"></path></g></svg></i></a>
-            </div>
-         </div>
+         @endforeach
       </div>
    </div>
 </section>
+
 <section class="gap">
    <div class="container">
       <div class="row">

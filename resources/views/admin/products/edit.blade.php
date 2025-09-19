@@ -80,15 +80,15 @@
                     <!-- Hiển thị ảnh cũ -->
                     <div class="mt-3 d-flex flex-wrap">
                         @foreach($product->images as $image)
-                            <div class="position-relative me-2 mb-2" style="display: inline-block;">
+                            <div class="position-relative me-2 mb-2" style="display:inline-block;">
                                 <img src="{{ asset('storage/' . $image->image) }}" alt="Product Image" class="rounded-3 shadow-sm" width="100">
-                                <form action="{{ route('admin.products.deleteImage', $image->id) }}" method="POST" class="position-absolute top-0 start-100 translate-middle" onsubmit="return confirm('Bạn có chắc chắn muốn xóa ảnh này không?');">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn btn-danger btn-sm rounded-circle">
-                                        <i class="fas fa-trash"></i>
-                                    </button>
-                                </form>
+
+                                <!-- Nút xoá bằng AJAX -->
+                                <button type="button" 
+                                        class="btn btn-danger btn-sm rounded-circle position-absolute top-0 start-100 translate-middle"
+                                        onclick="deleteImage({{ $image->id }})">
+                                    <i class="fas fa-trash"></i>
+                                </button>
                             </div>
                         @endforeach
                     </div>
@@ -104,4 +104,27 @@
         </div>
     </div>
 </div>
+
+<!-- Script xoá ảnh AJAX -->
+<script>
+    function deleteImage(imageId) {
+        if (confirm('Bạn có chắc chắn muốn xóa ảnh này không?')) {
+            fetch("{{ url('admin/products/image') }}/" + imageId, {
+                method: 'DELETE',
+                headers: {
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                }
+            }).then(response => {
+                if (response.ok) {
+                    location.reload(); // reload lại trang để cập nhật danh sách ảnh
+                } else {
+                    alert('Xoá ảnh thất bại!');
+                }
+            }).catch(error => {
+                console.error(error);
+                alert('Có lỗi xảy ra khi xoá ảnh!');
+            });
+        }
+    }
+</script>
 @endsection
